@@ -1,0 +1,251 @@
+level-1
+1)write a program to count the number of vowels and consonants in a string 
+#include <iostream>
+using namespace std;
+int main() {
+    char str[100];
+    int vowels = 0, consonants = 0;
+    cout << "Enter a string: ";
+    cin.getline(str, 100);
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u' || str[i] == 'A' || str[i] == 'E' || str[i] == 'I' || str[i] == 'O' || str[i] == 'U') {
+            vowels++;
+        } else if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z')) {
+            consonants++;
+        }
+    }
+    cout << "Number of vowels: " << vowels << endl;
+    cout << "Number of consonants: " << consonants << endl;
+    return 0;
+}
+
+
+2)create a class called employee with attribute use this pointer to refer to current instance and display the employee details
+
+#include <iostream>
+#include <string>
+using namespace std;
+class Employee {
+private:
+    std::string name;
+    int age;
+    double salary;
+public:
+    Employee(std::string name, int age, double salary) {
+        this->name = name;
+        this->age = age;
+        this->salary = salary;
+    }
+    void displayDetails() {
+        cout << "Employee Details:" <<endl;
+        cout << "Name: " << this->name <<endl;
+        cout << "Age: " << this->age <<endl;
+        cout << "Salary: $" << this->salary <<endl;
+    }
+};
+int main() {
+    Employee emp1("John Doe", 30, 50000.0);
+    emp1.displayDetails();
+    return 0;
+}
+
+
+3)c++ program to display address of each element of an array
+#include <iostream>
+using namespace std;
+int main() {
+    int arr[] = {10, 20, 30, 40, 50};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    cout << "Addresses of each element in the array:" <<endl;
+    for (int i = 0; i < size; ++i) {
+        cout << "Element " << i << ": " << &arr[i] <<endl;
+    }
+    return 0;
+}
+
+
+
+4)write a c++ program to converte binary number to octal using constructor
+#include <iostream>
+#include <cmath>
+using namespace std;
+class BinaryToOctal {
+private:
+    long long binaryNumber;
+    int octalNumber;
+public:
+    BinaryToOctal(long long binary) {
+        binaryNumber = binary;
+        octalNumber = 0;
+    }
+    int convertBinaryToOctal() {
+        int decimalNumber = 0, i = 0;
+        
+        while (binaryNumber != 0) {
+            int remainder = binaryNumber % 10;
+            decimalNumber += remainder * pow(2, i);
+            ++i;
+            binaryNumber /= 10;
+        }
+        i = 1;
+        while (decimalNumber != 0) {
+            octalNumber += (decimalNumber % 8) * i;
+            decimalNumber /= 8;
+            i *= 10;
+        }
+
+        return octalNumber;
+    }
+    void displayOctal() {
+        cout << "Octal equivalent: " << octalNumber <<endl;
+    }};
+int main() {
+    long long binaryInput;
+    cout << "Enter a binary number: ";
+    cin >> binaryInput;
+
+    BinaryToOctal converter(binaryInput);
+    int octalResult = converter.convertBinaryToOctal();
+    converter.displayOctal();
+
+    return 0;
+}
+
+
+
+
+
+
+level-2
+1)write a program to illustrate array index out of bounds exception
+#include <iostream>
+using namespace std;
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    for (int i = 0; i < 5; i++) {
+        cout << "Element at index " << i << ": " << arr[i] <<endl;
+    }
+    int index = 6; 
+    cout << "Trying to access element at index " << index << ": " << arr[index] <<endl;
+    return 0;
+}
+
+
+2)define a class string write overload function == to compare two strings
+#include<iostream>
+using namespace std;
+class String {
+private:
+    char* str;
+    int length;
+
+public:
+    String(const char* s) {
+        length = strlen(s);
+        str = new char[length + 1];
+        strcpy(str, s);
+    }
+    bool operator==(const String& s) {
+        if (length != s.length)
+            return false;
+        return strcmp(str, s.str) == 0;
+    }
+};
+int main() {
+    String s1 = "Hello";
+    String s2 = "World";
+    String s3 = "Hello";
+    if (s1 == s2)
+        cout << "s1 and s2 are equal" << endl;
+    else
+        cout << "s1 and s2 are not equal" << endl;
+    if (s1 == s3)
+        cout << "s1 and s3 are equal" << endl;
+    else
+        cout << "s1 and s3 are not equal" << endl;
+    return 0;
+}
+
+
+
+3)create a class student with three data member which are name,age,and address
+the constructor of the class assign default values to name as unknown age as "0" and address as not available.
+it has two functions with the same name setinfo 
+first function has two parameters for name and age and assigns the same whereas the second function takes has three parameters which are assigned to name age and address respectively 
+print the name age age and address of 10 students use array of objects
+
+#include <iostream>
+#include <string>
+class Student {
+private:
+    std::string name;
+    int age;
+    std::string address;
+public:
+    Student() : name("Unknown"), age(0), address("Not available") {}
+    void setInfo(std::string newName, int newAge) {
+        name = newName;
+        age = newAge;
+    }
+    void setInfo(std::string newName, int newAge, std::string newAddress) {
+        name = newName;
+        age = newAge;
+        address = newAddress;
+    }
+    void printInfo() {
+        std::cout << "Name: " << name << ", Age: " << age << ", Address: " << address << std::endl;
+    }
+};
+int main() {
+    Student students[10];
+    students[0].setInfo("Alice", 20, "123 Main St");
+    students[1].setInfo("Bob", 22, "456 Elm St");
+    students[2].setInfo("Charlie", 21, "789 Oak St");
+    students[3].setInfo("David", 19, "321 Pine St");
+    students[4].setInfo("Eve", 23, "654 Maple St");
+    students[5].setInfo("Frank", 18, "987 Cedar St");
+    students[6].setInfo("Grace", 24, "135 Birch St");
+    students[7].setInfo("Henry", 20, "468 Walnut St");
+    students[8].setInfo("Ivy", 22, "791 Spruce St");
+    students[9].setInfo("Jack", 21, "246 Fir St");
+    for (int i = 0; i < 10; i++) {
+        std::cout << "Student " << i+1 << ": ";
+        students[i].printInfo();
+    }
+    return 0;
+}
+
+
+4)write a program to find area of circle rectangle and triangle using constructor overloading
+#include <iostream>
+#include <cmath>
+using namespace std;
+class Shape {
+public:
+    Shape() {}
+    Shape(float radius) {
+        cout << "Area of Circle: " << 3.14159 * radius * radius << endl;
+    }
+    Shape(float length, float width) {
+        cout << "Area of Rectangle: " << length * width << endl;
+    }
+    Shape(float base, float height, float side1, float side2) {
+        float s = (base + side1 + side2) / 2;
+        cout << "Area of Triangle: " << sqrt(s * (s - base) * (s - height) * (s - side1)) << endl;
+    }};
+int main() {
+    float radius = 5.0;
+    float length = 4.0;
+    float width = 3.0;
+    float base = 6.0;
+    float height = 4.0;
+    float side1 = 5.0;
+    float side2 = 7.0;
+
+    Shape circle(radius);
+    Shape rectangle(length, width);
+    Shape triangle(base, height, side1, side2);
+
+    return 0;
+}
+
